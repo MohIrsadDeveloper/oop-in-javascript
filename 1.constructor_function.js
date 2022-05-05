@@ -1,63 +1,62 @@
-function BankAccount (customerName, balance = 0) {
-    this.customerName = customerName;
-    this.accountNumber = Date.now();
-    this.balance = balance;
+function BankAccount(customerName, balance = 0) {
+    this.customerName = customerName,
+        this.balance = balance,
+        this.accountNumber = Date.now();
 
     this.deposit = function (amount) {
         this.balance += amount;
     }
+
     this.widthdraw = function (amount) {
         this.balance -= amount;
     }
-};
+}
 
-const abdulAccount = new BankAccount("Abdul", 1000);
-const asmaAccount = new BankAccount("Asma");
-
-// abdulAccount.widthdraw(300)
-// asmaAccount.deposit(300)
-
-// console.log(abdulAccount, asmaAccount);
+// let AbdulAccount = new BankAccount("Abdul")
+// const AsmaAccount = new BankAccount("Asma", 5000)
+// AbdulAccount.deposit(400)
+// console.log(AbdulAccount, AsmaAccount);
 
 
-// =========== Dom Manuplation ====================
-const accounts = [];
-const accountForm = document.querySelector("#accountForm");
-const customerName = document.querySelector("#customerName");
-const balance = document.getElementById('balance');
+// Bank Account
+let accounts = [];
+let accountForm = document.getElementById('accountForm');
+let customerName = document.getElementById('customerName');
+let initialBalance = document.getElementById('balance');
 
-// Deposit
-const depositForm = document.getElementById("depositForm");
-const depositAccount = document.getElementById("accountNumber");
-const depositAmount = document.getElementById("amount");
-
-// Widthdraw
-const widthdrawForm = document.getElementById("widthdrawForm");
-const widthdrawAccount = document.getElementById("accountNumber1")
-const widthdrawAmount = document.getElementById("amount1")
-
-accountForm.addEventListener("submit", (e) => {
+accountForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const account = new BankAccount(customerName.value, +balance.value);
-    accounts.push(account);
+    let createAccount = new BankAccount(customerName.value, +initialBalance.value)
+    accounts.push(createAccount)
     console.log(accounts);
 })
 
-depositForm.addEventListener("submit", (e) => {
+// Deposit in Account
+const depositForm = document.getElementById('depositForm')
+const accountNumber = document.getElementById('accountNumber');
+const amount = document.getElementById('amount');
+
+depositForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    let depositerAccount = accounts.find(
-        (account) => account.accountNumber === +depositAccount.value
+    let findAccount = accounts.find(
+        (account) => account.accountNumber === +accountNumber.value
     )
-    depositerAccount.deposit(+depositAmount.value);
+    findAccount.deposit(+amount.value)
     console.log(accounts);
 })
 
 
-widthdrawForm.addEventListener("submit", (e) => {
+
+// Widthdraw from Account
+const widthdrawForm = document.getElementById('widthdrawForm')
+const accountNumber1 = document.getElementById('accountNumber1');
+const amount1 = document.getElementById('amount1');
+
+widthdrawForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    let widthdrawalAccount = accounts.find(
-        (account) => account.accountNumber === +widthdrawAccount.value
+    let findAccount = accounts.find(
+        (account) => account.accountNumber === +accountNumber.value
     )
-    widthdrawalAccount.widthdraw(+widthdrawAmount.value);
+    findAccount.widthdraw(+amount1.value)
     console.log(accounts);
 })
